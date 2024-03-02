@@ -1,16 +1,17 @@
 import { Header } from 'components';
 import { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { getUserInfo } from './service';
+import { useDispatch } from 'react-redux';
+import { fetchBaseCurrency } from 'reduxState/operations';
 
 const Home = lazy(() => import('./pages/Home'));
 const Rates = lazy(() => import('./pages/Rates'));
 
 export const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     function success(pos) {
-      console.log(pos);
-      getUserInfo(pos.coords).then(console.log);
+      dispatch(fetchBaseCurrency(pos.coords));
     }
 
     function error(err) {
