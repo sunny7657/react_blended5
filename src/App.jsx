@@ -3,6 +3,7 @@ import { lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchBaseCurrency } from 'reduxState/operations';
+import { setBaceCurrency } from 'reduxState/currencySlice';
 
 const Home = lazy(() => import('./pages/Home'));
 const Rates = lazy(() => import('./pages/Rates'));
@@ -14,12 +15,12 @@ export const App = () => {
       dispatch(fetchBaseCurrency(pos.coords));
     }
 
-    function error(err) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
+    function error() {
+      dispatch(setBaceCurrency('USD'));
     }
 
     navigator.geolocation.getCurrentPosition(success, error);
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>

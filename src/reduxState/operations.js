@@ -6,6 +6,7 @@ export const fetchBaseCurrency = createAsyncThunk(
   async (coords, thunkApi) => {
     const state = thunkApi.getState();
     const persistedBaseCurrency = state.currency.baseCurrency;
+    console.log(persistedBaseCurrency);
 
     if (persistedBaseCurrency) {
       return thunkApi.rejectWithValue('We already have base currancy');
